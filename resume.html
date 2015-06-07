@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Resume (....in progress....) </title>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js" type="text/javascript" charset="utf-8" ></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js" type="text/javascript" charset="utf-8" ></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/2.5.3/rx.lite.min.js" type="text/javascript" charset="utf-8" ></script>
+
+  <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="resume.css">
+
+
+  <style> 
+    body {
+      background-color: #f8f8f8;
+    }
+  </style>
+
+  
+  <script async defer>
+    "use strict";
+
+    function parsedMarkdownSource() { 
+      return Rx.Observable.fromPromise($.ajax({
+        url: "resume/resume.md",
+        cache: true, // ?
+      }))
+      .map(function(resumeMarkdown) {
+        marked.setOptions({
+          renderer: new marked.Renderer(),
+          gfm: true,
+          tables: true, 
+          breaks: true,
+          pedantic: false,
+          smartLists: true,
+          smartypants: false,
+        });
+        return marked(resumeMarkdown);
+      }); 
+    }
+
+    const SECOND = 1000;
+    const refreshCvEvery = 60 * SECOND;
+
+    function htmlSource() {
+      return Rx.Observable.timer(0, refreshCvEvery)
+        .flatMap(parsedMarkdownSource)
+        .distinctUntilChanged();
+    }
+    
+  </script>
+</head>
+
+<body>
+
+<button id="pdf-export" style="float:right">PDF</button>
+<button id="json-export" style="float:right">JSON</button>
+<div id="cv" style="padding-left:20%; padding-right:20%">
+
+</div>
+
+</body>
+
+<!-- after document loaded -->
+<script>
+  "use strict";
+  htmlSource().subscribe(function(htmlMd) {
+    $("#cv").html(htmlMd);
+  });
+
+  $("#pdf-export").on("click", function(e) {
+    e.preventDefault();
+  });
+  $("#json-export").on("click", function(e) {
+    e.preventDefault();
+  });
+</script>
+
+
+</html>
