@@ -1,123 +1,54 @@
 <!DOCTYPE html>
 <html>
+
 <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+<link rel="stylesheet" type="text/css" href="bower_components/BrandButtons/dist/brand-buttons.min.css">
+<link rel="stylesheet" type="text/css" href="bower_components/font-awesome/css/font-awesome.min.css">
+
+
+<link rel="icon" type="image/ico" href="favicon.ico"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<!-- <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png"> -->
+
 <style>
+
     * {
-       
         font-family: 'Montserrat', sans-serif;
     }
     body {
-       padding-top: 100px;
+        padding-top: 100px;
     }
     h1 {
-       margin-bottom:30px;
-    }
-
-
-    @font-face {
-    font-family: 'si';
-    src: url('socicon-1.3/socicon.eot');
-    src: url('socicon-1.3/socicon.eot?#iefix') format('embedded-opentype'),
-         url('socicon-1.3/socicon.woff') format('woff'),
-         url('socicon-1.3/socicon.ttf') format('truetype'),
-         url('socicon-1.3/socicon.svg#icomoonregular') format('svg');
-    font-weight: normal;
-    font-style: normal;
- 
-    }
- 
-    @media screen and (-webkit-min-device-pixel-ratio:0) {
-        @font-face {
-            font-family:si;
-            src: url(socicon-1.3/socicon.svg) format(svg);
-        }
-    }
-
-    .soc {
-        overflow:hidden;
-        margin:0; padding:0;
-        list-style:none;
-    }
-
-    .soc li {
-        display:inline-block;
-        *display:inline;
-        zoom:1;
-    }
-
-    .soc li a {
-        font-family:si!important;
-        font-style:normal;
-        font-weight:400;
-        -webkit-font-smoothing:antialiased;
-        -moz-osx-font-smoothing:grayscale;
-        -webkit-box-sizing:border-box;
-        -moz-box-sizing:border-box;
-        -ms-box-sizing:border-box;
-        -o-box-sizing:border-box;
-        box-sizing:border-box;
-
-        -o-transition:.1s;
-        -ms-transition:.1s;
-        -moz-transition:.1s;
-        -webkit-transition:.1s;
-        transition:.1s;
-        -webkit-transition-property: transform;
-        transition-property: transform;
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
-
-        overflow:hidden;
-        text-decoration:none;
-        text-align:center;
-        display:block;
-        position: relative;
-        z-index: 1;
-        width: 75px;
-        height: 75px;
-        line-height: 75px;
-        font-size: 41px;
-        -webkit-border-radius: 6px;
-        -moz-border-radius: 6px;
-        border-radius: 6px;
-        margin-right: 20px;
-        color: #ffffff;
-        background-color: #12544c;
-    }
-
-    .soc a:hover {
-        z-index: 2;
-        background-color:#266860 !important;
-    }
-
-    .soc-icon-last{
-        margin:0 !important;
-    }
-
-    .soc-email1:before {
-        content:'<';
-    }
-    .soc-github:before {
-        content:'Q';
-    }
-    .soc-linkedin:before {
-        content:'j';
-    }
-    .soc-soundcloud:before {
-        content:'n';
+        margin-bottom:30px;
     }
 
     #before_menu {
-       margin-bottom:50px;
+        margin-bottom:50px;
     }
-    #center {
-        
+    #center {        
         display:block;
         margin-left:auto;
         margin-right:auto;
         text-align:center;
     }
+
+    .btn {
+        margin:3px;
+        -webkit-transition: all .3s;
+        -moz-transition: all .3s;
+        -ms-transition: all .3s;
+        -o-transition: all .3s;
+        transition: all .3s;
+    }
 </style>
+
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
 <head lang="en">
     <meta charset="UTF-8">
     <title>Michal Fudala</title>
@@ -126,13 +57,32 @@
 <div id="center">
 <div id="header">
 <h1>Michał Fudała</h1>
-<h3 id="before_menu">developer</h3>
+<!-- <h3 id="before_menu">developer</h3> -->
 </div>
 <ul class="soc">
-    <li><a class="soc-email1" href="mailto:mail@michalfudala.com"></a></li>
-    <li><a class="soc-github" href="http://github.com/myhau"></a></li>
-    <li><a class="soc-linkedin" href="https://pl.linkedin.com/in/michalfudala"></a></li>
-    <li><a class="soc-soundcloud soc-icon-last" href="http://soundcloud.com/myhahau"></a></li>
+    <a class="btn btn-lg btn-gmail" href="mailto:mail@michalfudala.com">
+        <i class="fa fa-send-o"></i> Mail
+    </a>
+    <a class="btn btn-lg btn-github" href="http://github.com/myhau">
+        <i class="fa fa-github"></i> Code
+    </a>
+    <a class="btn btn-lg btn-github" href="projects">
+        <i class="fa fa-code"></i> Projects
+    </a>
+    <a class="btn btn-lg btn-github" href="">
+        <i class="fa fa-file-text-o"></i> Resume
+    </a>
+    <a class="btn btn-lg btn-tumblr" href="">
+        <i class="fa fa-newspaper-o"></i> Blog
+    </a>
+
+    <a class="btn btn-lg btn-linkedin" href="">
+        <i class="fa fa-linkedin"></i> LinkedIn
+    </a>
+    
+    <a class="btn btn-lg btn-soundcloud" href="http://soundcloud.com/myhahau">
+        <i class="fa fa-soundcloud"></i> Music
+    </a>
 </ul>
 </div>
 </body>

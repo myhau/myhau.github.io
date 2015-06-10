@@ -24,7 +24,7 @@
     function parsedMarkdownSource() { 
       return Rx.Observable.fromPromise($.ajax({
         url: "resume/resume.md",
-        cache: true, // ?
+        cache: false, // ?
       }))
       .map(function(resumeMarkdown) {
         marked.setOptions({
@@ -34,14 +34,15 @@
           breaks: true,
           pedantic: false,
           smartLists: true,
-          smartypants: false,
+          smartypants: true,
+          
         });
         return marked(resumeMarkdown);
       }); 
     }
 
     const SECOND = 1000;
-    const refreshCvEvery = 60 * SECOND;
+    const refreshCvEvery = 1 * SECOND;
 
     function htmlSource() {
       return Rx.Observable.timer(0, refreshCvEvery)
@@ -56,9 +57,9 @@
 
 <button id="pdf-export" style="float:right">PDF</button>
 <button id="json-export" style="float:right">JSON</button>
-<div id="cv" style="padding-left:20%; padding-right:20%">
-  NO JAVASCRIPT ?
-  WHY ?
+
+<div id="cv" style="padding-left:15%; padding-right:15%">
+  Loading.....
 </div>
 
 </body>

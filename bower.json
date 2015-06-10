@@ -1,0 +1,16 @@
+{
+  "name": "myhau.github.io",
+  "version": "0.0.0",
+  "homepage": "https://github.com/myhau/myhau.github.io",
+  "authors": [
+    "myhau <mmyhau@gmail.com>"
+  ],
+  "description": "Personal webiste",
+  "main": "index.html",
+  "license": "MIT",
+  "dependencies": {
+    "BrandButtons": "*",
+    "bootstrap": "~3.3.4",
+    "font-awesome": "~4.3.0"
+  }
+}
