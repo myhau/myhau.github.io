@@ -1,22 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Resume (....in progress....) </title>
+  <title>Resume</title>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js" type="text/javascript" charset="utf-8" ></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js" type="text/javascript" charset="utf-8" ></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/2.5.3/rx.lite.min.js" type="text/javascript" charset="utf-8" ></script>
 
-  <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="resume.css">
+  
+  <link rel="stylesheet" href="resume_print.css" type="text/css" media="print" />
 
-
-  <style> 
-    body {
-      background-color: #f8f8f8;
-    }
-  </style>
-
+  <link rel="icon" type="image/ico" href="favicon.ico"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
   
   <script async defer>
     "use strict";
@@ -55,8 +52,8 @@
 
 <body>
 
-<button id="pdf-export" style="float:right">PDF</button>
-<button id="json-export" style="float:right">JSON</button>
+<button id="pdf-export" style="float:right" onclick="window.print();">PDF</button>
+<!-- <button id="json-export" style="float:right">JSON</button> -->
 
 <div id="cv" style="padding-left:15%; padding-right:15%">
   Loading.....

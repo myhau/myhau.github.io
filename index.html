@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 
-<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+<link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,300,700,600,800,400&subset=latin,latin-ext" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
 <link rel="stylesheet" type="text/css" href="bower_components/BrandButtons/dist/brand-buttons.min.css">
@@ -16,13 +17,22 @@
 <style>
 
     * {
-        font-family: 'Montserrat', sans-serif;
+        font-family: 'Open Sans';
     }
     body {
+        background-image: url("http://api.thumbr.it/whitenoise-500x500.png?background=fdfdfd&noise=626262&density=5&opacity=10");
+        background-color: #fdfdfd;
         padding-top: 100px;
     }
+
+
     h1 {
         margin-bottom:30px;
+        font-weight: 600;
+    }
+
+    h3 { 
+        font-weight: 600;
     }
 
     #before_menu {
@@ -43,6 +53,26 @@
         -o-transition: all .3s;
         transition: all .3s;
     }
+
+    .category-name {
+        font-weight:600;
+    }
+
+    .project {
+        float:left;
+    }
+
+    .projects-for-cat {
+        overflow:hidden;
+        width: 400px;
+        min-height: 100px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+
+
+
 </style>
 
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
@@ -51,7 +81,7 @@
 
 <head lang="en">
     <meta charset="UTF-8">
-    <title>Michal Fudala</title>
+    <title>Michał Fudała</title>
 </head>
 <body>
 <div id="center">
@@ -66,17 +96,17 @@
     <a class="btn btn-lg btn-github" href="http://github.com/myhau">
         <i class="fa fa-github"></i> Code
     </a>
-    <a class="btn btn-lg btn-github" href="projects">
+    <a class="btn btn-lg btn-github" id="projects-link" href="projects">
         <i class="fa fa-code"></i> Projects
     </a>
-    <a class="btn btn-lg btn-github" href="">
+    <a class="btn btn-lg btn-github" href="resume">
         <i class="fa fa-file-text-o"></i> Resume
     </a>
-    <a class="btn btn-lg btn-tumblr" href="">
+    <a class="btn btn-lg btn-tumblr" href="blog">
         <i class="fa fa-newspaper-o"></i> Blog
     </a>
 
-    <a class="btn btn-lg btn-linkedin" href="">
+    <a class="btn btn-lg btn-linkedin" href="http://pl.linkedin.com/in/michalfudala">
         <i class="fa fa-linkedin"></i> LinkedIn
     </a>
     
@@ -84,6 +114,82 @@
         <i class="fa fa-soundcloud"></i> Music
     </a>
 </ul>
+<div id="projects" style="display:none;margin-top:50px">
+<h3> Projects </h3>
+    
 </div>
+</div>
+
+
+<script>
+"use strict";
+
+let projects = [
+    {
+        name: "Data Visualization", 
+        projects: [
+            {
+                "name": "Simulated annealing - Traveling salesman approx solution",
+                "link": "siman",
+                "description": "Visual explanation of simulated annealing algorithm.", 
+                "imglink": "1.png" 
+            },
+            {
+                "name": "Simulated annealing - Traveling salesman approx solution",
+                "link": "siman",
+                "description": "Visual explanation of simulated annealing algorithm.", 
+                "imglink": "1.png" 
+            }
+        ],
+    },
+    {
+        name: "Machine Learning", 
+        projects: [
+            {
+                "name": "Simulated annealing - Traveling salesman approx solution",
+                "link": "siman",
+                "description": "Visual explanation of simulated annealing algorithm.", 
+                "imglink": "" 
+            }
+        ],
+    },
+    {
+        name: "Algorithms", 
+        projects: [
+            {
+                "name": "Simulated annealing - Traveling salesman approx solution",
+                "link": "siman",
+                "description": "Visual explanation of simulated annealing algorithm.", 
+                "imglink": "" 
+            }
+        ],
+    },
+];
+
+// TODO: change to React
+projects.forEach(function(category) {
+    let projectsDiv = $("#projects");
+
+    let catDiv = $("<div class=\"category\"></div>").appendTo(projectsDiv);
+
+    $("<h4 class=\"category-name\"></h4>").appendTo(catDiv).text(category.name);            
+
+    let projectsForCat = $("<div class=\"projects-for-cat\"></div>");
+
+    projectsForCat.appendTo(catDiv);
+
+    category.projects.forEach(function(project) {
+        let projDiv = $("<div class=\"project\"></div>").appendTo(projectsForCat);
+        let projImg = $(`<a href="${project.link}"><img width="100px" src="${project.imglink}" alt="${project.name} ${project.description}" /></a>`);
+        projImg.appendTo(projDiv);
+    });
+});
+
+$("#projects-link").on("click", function(e) {
+    e.preventDefault();
+    $("#projects").fadeToggle(250, "swing");
+});
+
+</script>
 </body>
 </html>
