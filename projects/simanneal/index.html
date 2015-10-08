@@ -1,0 +1,219 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <title>Simulated annealing</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+        <link rel="stylesheet" href="styles/main.css">
+        <link rel="stylesheet" href="bower_components/metrics-graphics/dist/metricsgraphics.css">
+
+        <script src="scripts/vendor/modernizr.js"></script>
+
+
+    </head>
+    <body>
+        <!--[if lt IE 10]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <div class="alert alert-danger hidden" id="mainErrorCont" role="alert">
+          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+          <span class="sr-only">Error:</span>
+          <span id="mainError"> </span>
+        </div>
+        <div class="container-fluid">
+            <div class="header">
+                <h3>Simulated annealing - traveling salesman</h3>
+            </div>
+
+            <div class="row">
+            	<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <div id="sa-data">
+                        <table class="table table-bordered table-striped">
+                            <colgroup>
+                                <col class="col-xs-7">
+                                <col class="col-xs-1">
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th>Parameter</th>
+                                <th>Value</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row">
+                                    Iteration no.
+                                </th>
+                                <td><div id="sa-iter"></div></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">
+                                    Evaluated count
+                                </th>
+                                <td><div id="sa-evals" ></div></td>
+                            </tr>
+                            <tr id="sa-temp-color">
+                                <th scope="row">
+                                    Current temperature
+                                </th>
+                                <td><div id="sa-temp"></div></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">
+                                    Now solution
+                                </th>
+                                <td><div id="sa-pos" ></div></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">
+                                    Energy
+                                </th>
+                                <td><div id="sa-energy"></div></td>
+                            </tr>
+                            <tr class="success">
+                                <th scope="row">
+                                    Lowest energy for now
+                                </th>
+                                <td><div id="sa-best_energy"></div></td>
+                            </tr>
+                            <tr class="success">
+                                <th scope="row">
+                                    Best solution
+                                </th>
+                                <td><div id="sa-best_pos"></div></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+            	</div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <div role="tabpanel">
+
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#graph1" role="tab" data-toggle="tab">Salesman graph</a></li>
+                            <li role="presentation"><a href="#charts1" role="tab" data-toggle="tab">Temperature/Energy charts</a></li>
+                        </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="graph1">
+                                <div style="width:600px; height:400px" id="graph-container"></div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="charts1">
+                                <div id="tempChart"> </div>
+                                <div id="energyChart"> </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                 <div role="tabpanel">
+
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#points1" role="tab" data-toggle="tab">Points</a></li>
+                            <li role="presentation"><a href="#params1" role="tab" data-toggle="tab">Parameters</a></li>
+                        </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane" id="params1">
+                                <form id="sa-params">
+                                    <div class="form-group">
+                                        <label for="temp_init">Initial temperature</label>
+                                        <input type="number" step="0.00001" class="form-control input-sm" name="temp_init" id="temp_init" value="1000">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="temp_min">Minimal temperature</label>
+                                        <input type="number" step="0.00001" class="form-control input-sm" name="temp_min" id="temp_min" value="0.001">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="damp_factor">Damp factor</label>
+                                        <input type="number" step="0.00001" class="form-control input-sm" name="damp_factor" id="damp_factor" value="1.02">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="k">Boltzman constant k</label>
+                                        <input type="number" step="0.00001" class="form-control input-sm" name="k" id="k" value="1">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="iters_for_each_t">Iterations for fixed temperature</label>
+                                        <input type="number" min="1" step="1" class="form-control input-sm" name="iters_for_each_t" id="iters_for_each_t" value="200">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </form>
+                            </div>
+                            <div role="tabpanel" class="tab-pane active" id="points1">
+                                 <form id="sa-points">
+                                    <div class="form-group">
+                                        <label for="x">X</label>
+                                        <input type="number" step="0.0001" class="form-control input-sm" name="x" id="point_x" value="5">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="y">Y</label>
+                                        <input type="number" step="0.0001" class="form-control input-sm" name="y" id="point_y" value="5">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary" id="points-add">Add</button>
+                                    <button type="submit" class="btn btn-primary" id="points-random">Rand 10</button>
+                                    <button type="submit" class="btn btn-primary" id="points-reset">Reset</button>
+                                    <button type="submit" class="btn btn-primary" id="points-undo">Undo</button>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <form id="sa-main-fader-form">
+                    <div class="form-group">
+                        <label for="sa-main-fader">Time machine:</label>
+                        <input type=range min="0" max="100" value="0" id="sa-main-fader" />
+                    </div>
+                </form>
+            </div>
+
+            <div class="footer">
+                <p>Author: <a href="http://michalfudala.com">Michal Fudala</a></p>
+            </div>
+
+        </div>
+
+
+        
+
+        <script src="bower_components/jquery/dist/jquery.js"></script>
+
+        <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+
+        <script src="bower_components/sigma/sigma.min.js"></script>
+
+        <script src="bower_components/d3/d3.js"></script>
+        <script src="bower_components/metrics-graphics/dist/metricsgraphics.js"></script>
+
+
+
+
+        <script src="scripts/app.js"></script>
+
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <script>
+            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='//www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create','UA-XXXXX-X');ga('send','pageview');
+        </script>
+    </body>
+</html>
